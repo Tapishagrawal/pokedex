@@ -27,6 +27,7 @@ export default function PokemonCard({ id, name, sprites, stats, abilities, setIs
             <h3 className='text-center font-bold text-lg'>{name[0]?.toUpperCase()+name?.slice(1)}</h3>
             <div className='flex flex-wrap justify-around mt-5 gap-5'>
                 {abilities.map((ability, i) => (
+                    i<=1 &&
                     <p key={i} style={{ backgroundColor: `${typeColor[types[0].type.name]}` }} className=' text-white p-1 rounded-full px-2 text-xs font-medium'>{ability.ability.name}</p>
                 ))}
             </div>

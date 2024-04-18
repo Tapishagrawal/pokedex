@@ -3,8 +3,10 @@ import axios from 'axios'
 import PokemonCard from './PokemonCard';
 import PokemonModal from './PokemonModal';
 import { searchContext } from '../contextApi/SearchContextProvider';
-import { ShowPokemonContext } from '../contextApi/ShowPokemonContextProvider';
+import { FaArrowLeftLong } from "react-icons/fa6";
+
 import Loadning from './Loadning';
+import { useNavigate } from 'react-router-dom';
 export default function PokemonList() {
     const [pokemonData, setPokemonData] = useState([]);
     const [filteredPokemonData, setFilteredPokemonData] = useState([]);
@@ -14,6 +16,7 @@ export default function PokemonList() {
     const [page, setPage] = useState(0);
     const [totalPage, setTotalPage] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate()
 
     const fetchData = async () => {
         try {
@@ -28,13 +31,16 @@ export default function PokemonList() {
         }
     }
     const getPokemon = async (data) => {
+        setIsLoading(true)
         try {
             const allPokemonDetailedData = await Promise.all(data.map(async (item) => {
                 const res = await axios(item.url);
                 return res.data;
             }));
             setPokemonData(allPokemonDetailedData);
+            setIsLoading(false)
         } catch (error) {
+            setIsLoading(false)
             console.error('Error fetching Pokémon data:', error);
         }
     };
@@ -54,10 +60,12 @@ export default function PokemonList() {
     return (
         <>
             {
-                pokemonData.length==0 ? <Loadning/>
+                isLoading && pokemonData.length === 0 ? <Loadning />
                     :
-                    <div>
-                        <div className={`grid place-items-center grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 my-20 gap-x-20`}>
+                    <div className='my-20'>
+                        <button onClick={() => navigate("/")} className='flex items-center gap-2 font-semibold text-zinc-600 hover:bg-slate-300 rounded-full px-2 py-[1px] transition-all my-5 ml-8'><i className='text-orange-500'><FaArrowLeftLong /></i> Home</button>
+
+                        <div className={`grid place-items-center grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 gap-x-20`}>
                             {
                                 filteredPokemonData.map((pokemon, i) => (
                                     <PokemonCard key={i} {...pokemon} setIsModalVisible={setIsModalVisible} getSinglePokemon={getSinglePokemon} />
