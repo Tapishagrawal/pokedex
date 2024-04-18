@@ -9,25 +9,31 @@ export default function PokemonList() {
     const [filteredPokemonData, setFilteredPokemonData] = useState([]); 
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [pokemonDetails, setPokemonDetails] = useState({});
-    const { searchValue } = useContext(searchContext);
+    const { inputValue } = useContext(searchContext);
     const { isPokemonVisible } = useContext(ShowPokemonContext);
+    const [page, setPage] = useState(0);
+    const [totalPage,setTotalPage] = useState(0);
     const fetchData = async () => {
         try {
-            const res = await axios(`https://pokeapi.co/api/v2/pokemon`);
-            getPokemon(res.data.results)
+            const res = await axios(`https://pokeapi.co/api/v2/pokemon?offset=${page}&limit=20`);
+            getPokemon(res.data.results);
+            setTotalPage(res.data.count)
         } catch (error) {
             console.log(error)
         }
     }
-    const getPokemon = (data) => {
-        data.map(async (item) => {
-            const res = await axios(item.url);
-            setPokemonData(pre => {
-                pre = [...pre, res.data];
-                return pre
-            })
-        })
-    }
+    const getPokemon = async (data) => {
+        try {
+            const allPokemonDetailedData = await Promise.all(data.map(async (item) => {
+                const res = await axios(item.url);
+                return res.data;
+            }));
+            setPokemonData(allPokemonDetailedData);
+        } catch (error) {
+            console.error('Error fetching Pokémon data:', error);
+        }
+    };
+    
     const getSinglePokemon = (pokemonId) => {
         const pokemon = pokemonData.find(pokemon => pokemon.id === pokemonId)
         setPokemonDetails(pokemon)
@@ -37,9 +43,9 @@ export default function PokemonList() {
     }, []);
 
     useEffect(()=>{
-        const filteredData = pokemonData.filter(pokemon=>pokemon.name.includes(searchValue));
+        const filteredData = pokemonData.filter(pokemon=>pokemon.name.includes(inputValue));
         setFilteredPokemonData(filteredData); 
-    },[searchValue, pokemonData]) 
+    },[inputValue, pokemonData]) ;
     return (
         <>
             <div className={` grid grid-flow-row ${isPokemonVisible ? "grid-cols-3" : "grid-cols-4"} gap-5 mx-auto gap-x-20 ${isPokemonVisible ? "max-w-screen-md" : "max-w-screen-lg transition-all duration-500"}`}>

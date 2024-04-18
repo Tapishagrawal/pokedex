@@ -4,11 +4,14 @@ import App from './App.jsx'
 import './index.css'
 import SearchContextProvider from './contextApi/SearchContextProvider.jsx'
 import ShowPokemonContextProvider from './contextApi/ShowPokemonContextProvider.jsx'
+import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <ShowPokemonContextProvider>
-    <SearchContextProvider>
-      <App />
-    </SearchContextProvider>
-  </ShowPokemonContextProvider>
+  <BrowserRouter>
+    <ShowPokemonContextProvider>
+      <SearchContextProvider>
+        <App />
+      </SearchContextProvider>
+    </ShowPokemonContextProvider>
+  </BrowserRouter>
 )
