@@ -6,17 +6,22 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
 
 export default function Navbar() {
-  const { setSearchValue, handleSetSerachValue } = useContext(searchContext);
+  const { setSearchValue, handleSetSerachValue, searchValue } = useContext(searchContext);
   const [mobileManu, setmobileManu] = useState(false)
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    handleSetSerachValue();
-  }
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if(searchValue){
       handleSetSerachValue();
       navigate("/pokemons")
+    }
+  }
+  const handleKeyPress = (e) => {
+    if (searchValue) {
+      if (e.key === 'Enter') {
+        handleSetSerachValue();
+        navigate("/pokemons")
+      }
     }
   }
   return (
@@ -26,15 +31,15 @@ export default function Navbar() {
         <div className='flex gap-5 '>
           {
             mobileManu ?
-            <i className='cursor-pointer text-2xl second-serachBar' onClick={() => setmobileManu(!mobileManu)}><IoClose/></i>
-            :
-            <i className='cursor-pointer second-serachBar' onClick={() => setmobileManu(!mobileManu)}><RxHamburgerMenu /></i>
+              <i className='cursor-pointer text-2xl second-serachBar' onClick={() => setmobileManu(!mobileManu)}><IoClose /></i>
+              :
+              <i className='cursor-pointer second-serachBar' onClick={() => setmobileManu(!mobileManu)}><RxHamburgerMenu /></i>
           }
-          <div className='relative searchBar'>
-            <input onChange={(e) => setSearchValue(e.target.value)} onKeyDown={handleKeyPress} type="text" placeholder='Search' className='group md:w-96 border border-zinc-300 outline-none focus:border-2 focus:border-blue-300 px-5 pr-6 rounded-full py-1 font-medium text-zinc-500 text-sm' />
+          <form onSubmit={(e)=>e.preventDefault()} className='relative searchBar'>
+            <input required onChange={(e) => setSearchValue(e.target.value)} onKeyDown={handleKeyPress} type="text" placeholder='Search' className='group md:w-96 border border-zinc-300 outline-none focus:border-2 focus:border-blue-300 px-5 pr-6 rounded-full py-1 font-medium text-zinc-500 text-sm' />
             <i className='absolute right-2 top-[0.4rem] text-zinc-600'><IoSearchOutline /></i>
-          </div>
-          <Link to="/pokemons" onClick={handleSearch} className='searchBar bg-orange-600 px-3 py-1 rounded-2xl text-white font-medium transition-all'>Serach</Link>
+          </form>
+          <button onClick={handleSearch} className='searchBar bg-orange-600 px-3 py-1 rounded-2xl text-white font-medium transition-all'>Search</button>
         </div>
         {
           mobileManu &&

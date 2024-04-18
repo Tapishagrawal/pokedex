@@ -15,7 +15,7 @@ export default function PokemonList() {
     const [totalPage,setTotalPage] = useState(0);
     const fetchData = async () => {
         try {
-            const res = await axios(`https://pokeapi.co/api/v2/pokemon?offset=${page}&limit=20`);
+            const res = await axios(`https://pokeapi.co/api/v2/pokemon?offset=${page}&limit=200`);
             getPokemon(res.data.results);
             setTotalPage(res.data.count)
         } catch (error) {
