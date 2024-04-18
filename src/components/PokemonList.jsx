@@ -48,7 +48,7 @@ export default function PokemonList() {
     },[inputValue, pokemonData]) ;
     return (
         <>
-            <div className={` grid grid-flow-row ${isPokemonVisible ? "grid-cols-3" : "grid-cols-4"} gap-5 mx-auto gap-x-20 ${isPokemonVisible ? "max-w-screen-md" : "max-w-screen-lg transition-all duration-500"}`}>
+            <div className={` grid grid-flow-row ${isPokemonVisible ? "grid-cols-3" : "grid-cols-4"} gap-5 mx-auto gap-x-20 ${isPokemonVisible ? "max-w-screen-md" : "max-w-screen-lg transition-all duration-500 mt-20"}`}>
                 {
                     filteredPokemonData.map((pokemon, i) => (
                         <PokemonCard key={i} {...pokemon} setIsModalVisible={setIsModalVisible} getSinglePokemon={getSinglePokemon} />

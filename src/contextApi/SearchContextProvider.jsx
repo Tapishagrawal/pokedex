@@ -7,7 +7,8 @@ export default function SearchContextProvider({ children }) {
     const [inputValue, setInputValue] = useState("");
 
     const handleSetSerachValue = () => {
-        setInputValue(searchValue)
+        setInputValue(searchValue);
+        setSearchValue("");
     }
 
     return <searchContext.Provider value={{ searchValue, setSearchValue, handleSetSerachValue, inputValue}}>
