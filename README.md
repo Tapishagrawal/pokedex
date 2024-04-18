@@ -27,6 +27,14 @@ To run the app, execute:
 npm run dev
 ```
 
+## Screenshots
 
+### Home Page:
+![Alt text](./public/Home1.png)
 
+### User Pokemon Card:
+![Alt text](./public/Home2.png)
+
+### Single Card:
+![Alt text](./public/Home3.png)
     
