@@ -22,3 +22,7 @@ body {
         display: initial;
     }
 }
+
+.pokemon-user-image {
+    width: 300px;
+}
