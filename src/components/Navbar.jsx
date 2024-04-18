@@ -36,7 +36,7 @@ export default function Navbar() {
               <i className='cursor-pointer second-serachBar' onClick={() => setmobileManu(!mobileManu)}><RxHamburgerMenu /></i>
           }
           <form onSubmit={(e)=>e.preventDefault()} className='relative searchBar'>
-            <input required onChange={(e) => setSearchValue(e.target.value)} onKeyDown={handleKeyPress} type="text" placeholder='Search' className='group md:w-96 border border-zinc-300 outline-none focus:border-2 focus:border-blue-300 px-5 pr-6 rounded-full py-1 font-medium text-zinc-500 text-sm' />
+            <input value={searchValue} onChange={(e) => setSearchValue(e.target.value)} onKeyDown={handleKeyPress} type="text" placeholder='Search' className='group md:w-96 border border-zinc-300 outline-none focus:border-2 focus:border-blue-300 px-5 pr-6 rounded-full py-1 font-medium text-zinc-500 text-sm' />
             <i className='absolute right-2 top-[0.4rem] text-zinc-600'><IoSearchOutline /></i>
           </form>
           <button onClick={handleSearch} className='searchBar bg-orange-600 px-3 py-1 rounded-2xl text-white font-medium transition-all'>Search</button>
