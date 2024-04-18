@@ -4,8 +4,7 @@ import UserSinglePokemon from '../components/UserSinglePokemon'
 
 export default function Home() {
     return (
-        <div className='my-20 flex gap-10'>
-            {/* <PokemonList /> */}
+        <div className='my-20 flex gap-10 px-3'>
             <UserSinglePokemon />
         </div>
     )

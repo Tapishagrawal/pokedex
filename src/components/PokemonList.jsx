@@ -9,7 +9,7 @@ export default function PokemonList() {
     const [filteredPokemonData, setFilteredPokemonData] = useState([]); 
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [pokemonDetails, setPokemonDetails] = useState({});
-    const { inputValue } = useContext(searchContext);
+    const { inputValue, searchValue } = useContext(searchContext);
     const { isPokemonVisible } = useContext(ShowPokemonContext);
     const [page, setPage] = useState(0);
     const [totalPage,setTotalPage] = useState(0);
@@ -40,7 +40,7 @@ export default function PokemonList() {
     }
     useEffect(() => {
         fetchData()
-    }, []);
+    }, [searchValue, inputValue]);
 
     useEffect(()=>{
         const filteredData = pokemonData.filter(pokemon=>pokemon.name.includes(inputValue));
@@ -48,7 +48,7 @@ export default function PokemonList() {
     },[inputValue, pokemonData]) ;
     return (
         <>
-            <div className={` grid grid-flow-row ${isPokemonVisible ? "grid-cols-3" : "grid-cols-4"} gap-5 mx-auto gap-x-20 ${isPokemonVisible ? "max-w-screen-md" : "max-w-screen-lg transition-all duration-500 mt-20"}`}>
+            <div className={`grid place-items-center grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 my-20 gap-x-20`}>
                 {
                     filteredPokemonData.map((pokemon, i) => (
                         <PokemonCard key={i} {...pokemon} setIsModalVisible={setIsModalVisible} getSinglePokemon={getSinglePokemon} />
