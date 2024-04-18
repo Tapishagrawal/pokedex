@@ -1,6 +1,7 @@
 import React from 'react'
 import PokemonList from '../components/PokemonList'
 import UserSinglePokemon from '../components/UserSinglePokemon'
+import Loadning from '../components/Loadning'
 
 export default function Home() {
     return (
