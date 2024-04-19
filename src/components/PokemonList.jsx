@@ -28,7 +28,7 @@ export default function PokemonList() {
     }
     useEffect(() => {
         if (inputValue) {
-            const filteredData = allPokeonData.filter(pokemon => pokemon.name.includes(inputValue));
+            const filteredData = allPokeonData.filter(pokemon => pokemon.name.toLowerCase().includes(inputValue.toLowerCase()));
             setFilteredPokemonData(filteredData);
         }
     }, [inputValue, allPokeonData]);
