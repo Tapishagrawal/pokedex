@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { ShowPokemonContext } from '../contextApi/ShowPokemonContextProvider'
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllPokeonData, randomPoemonData } from '../redux/action';
+import { fetchAllPokeonData, randomPokemonData } from '../redux/action';
 const typeColor = {
     bug: "#26de81",
     dragon: "#ffeaa7",
@@ -31,10 +31,11 @@ export default function UserSinglePokemon() {
     })
 
     useEffect(() => {
-        dispatch(randomPoemonData())
+        console.log("Local storage check",localStorage.getItem("pokemon"))
+        if(localStorage.getItem("pokemon") == null){
+            dispatch(randomPokemonData())
+        }
     }, [])
-    console.log(randomSinglePokemon)
-
     return (
         randomSinglePokemon && (
             <div className='bg-white p-7 rounded-2xl w-full lg:w-[1000px] md:w-[900px] h-[800px] sm:h-[450px] mt-10 shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px] mx-auto'>

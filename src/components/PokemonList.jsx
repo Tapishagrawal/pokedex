@@ -36,7 +36,6 @@ export default function PokemonList() {
     useEffect(() => {
         dispatch(fetchAllPokeonData())
     }, []);
-    console.log(filteredPokemonData)
     return (
         <>
             {
