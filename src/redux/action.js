@@ -31,7 +31,7 @@ export const randomPokemonData = () => async (dispatch) => {
         const id = Math.floor(Math.random() * 200)
         const res = await axios(`https://pokeapi.co/api/v2/pokemon/${id}`);
         localStorage.setItem("pokemon", JSON.stringify(res.data));
-        // dispatch({ type: FETCH_RANDOM_POKEMON_DATA_SUCCESS, payload: res.data })
+        dispatch({ type: FETCH_RANDOM_POKEMON_DATA_SUCCESS, payload: res.data })
     } catch (error) {
         dispatch({ type: FETCH_RANDOM_POKEMON_DATA_ERROR })
         console.log(error)
